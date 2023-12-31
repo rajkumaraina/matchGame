@@ -1,6 +1,6 @@
 import './index.css'
 
-const ResulCard = props => {
+const ResultCard = props => {
   const {score, playAgain} = props
   const play = () => {
     playAgain()
@@ -14,7 +14,7 @@ const ResulCard = props => {
           className="trophyImg"
         />
         <p className="scorePara">YOUR SCORE</p>
-        <p className="score">{score}</p>
+        <h1 className="score">{score}</h1>
         <div className="buttonContainer">
           <img
             src="https://assets.ccbp.in/frontend/react-js/match-game-play-again-img.png"
@@ -29,4 +29,4 @@ const ResulCard = props => {
     </div>
   )
 }
-export default ResulCard
+export default ResultCard

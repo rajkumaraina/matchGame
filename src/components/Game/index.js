@@ -2,7 +2,7 @@ import {Component} from 'react'
 
 import './index.css'
 
-import ResulCard from '../scoreCard'
+import ResultCard from '../scoreCard'
 
 import ThumbnailEachItem from '../thumbnailItem'
 
@@ -283,6 +283,14 @@ class Matchgame extends Component {
     initialTabsList: tabsList,
   }
 
+  componentDidMount = () => {
+    const {timerIsActive} = this.state
+    if (timerIsActive === true) {
+      this.timerId = setInterval(this.tick, 1000)
+      this.setState({timerIsActive: false})
+    }
+  }
+
   tabChange = id => {
     this.setState({category: id})
   }
@@ -290,10 +298,6 @@ class Matchgame extends Component {
   checkItem = id => {
     const {timerIsActive, initialImagesList, mainImg, timerSec} = this.state
 
-    if (timerIsActive === true) {
-      this.timerId = setInterval(this.tick, 1000)
-      this.setState({timerIsActive: false})
-    }
     let check
     const item = initialImagesList.filter(each => {
       if (each.id === id) {
@@ -305,23 +309,36 @@ class Matchgame extends Component {
     })
     const each = item[0]
     if (each.thumbnailUrl === mainImg.thumbnailUrl) {
-      this.setState(prevState => ({score: prevState.score + 1}))
+      const val = Math.ceil(Math.random() * initialImagesList.length - 1)
+      this.setState(prevState => ({
+        score: prevState.score + 1,
+        mainImg: initialImagesList[val],
+      }))
+    } else {
+      this.setState(prevState => ({result: true, timerSec: prevState.timerSec}))
+      clearInterval(this.timerId)
     }
-    const val = Math.ceil(Math.random() * initialImagesList.length - 1)
-    this.setState({mainImg: initialImagesList[val]})
   }
 
   tick = () => {
     const {timerSec} = this.state
-    if (timerSec === 1) {
+    console.log('hi')
+    if (timerSec === 0) {
       clearInterval(this.timerId)
       this.setState({result: true})
+    } else {
+      this.setState(prevState => ({timerSec: prevState.timerSec - 1}))
     }
-    this.setState(prevState => ({timerSec: prevState.timerSec - 1}))
   }
 
   playAgain = () => {
-    this.setState({timerSec: 60, score: 0, result: false})
+    this.setState({
+      timerSec: 60,
+      mainImg: imagesList[0],
+      score: 0,
+      result: false,
+    })
+    this.timerId = setInterval(this.tick, 1000)
   }
 
   render() {
@@ -338,12 +355,13 @@ class Matchgame extends Component {
       each => each.category === category,
     )
     let container
+    const mainImage = mainImg.imageUrl
     if (result === true) {
-      container = <ResulCard score={score} playAgain={this.playAgain} />
+      container = <ResultCard score={score} playAgain={this.playAgain} />
     } else {
       container = (
         <div className="insideContainer">
-          <img src={mainImg.imageUrl} className="mainImg" alt="match" />
+          <img src={mainImage} className="mainImg" alt="match" />
           <ul className="unordered">
             {initialTabsList.map(each => (
               <TabItem
@@ -370,12 +388,14 @@ class Matchgame extends Component {
     return (
       <div className="mainContainer">
         <ul className="NavBarContainer">
-          <img
-            src="https://assets.ccbp.in/frontend/react-js/match-game-website-logo.png"
-            alt="website logo"
-            className="logoImg"
-          />
-          <li className="scoreContainer">
+          <li className="listItem">
+            <img
+              src="https://assets.ccbp.in/frontend/react-js/match-game-website-logo.png"
+              alt="website logo"
+              className="logoImg"
+            />
+          </li>
+          <li className="scoreContainer listItem">
             <p className="scorePara">
               Score: <span className="spanElement">{score}</span>
             </p>
@@ -385,7 +405,7 @@ class Matchgame extends Component {
                 alt="timer"
                 className="timerImg"
               />
-              <span className="spanElement">{timerSec} sec</span>
+              <p className="spanElement">{timerSec} sec</p>
             </div>
           </li>
         </ul>
