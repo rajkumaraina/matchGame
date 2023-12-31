@@ -1,5 +1,14 @@
 .thumbnailImg {
   width: 97px;
   height: 95px;
+}
+.eachButton {
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  width: 97px;
+  height: 95px;
   margin: 8px;
+  padding: 0;
+  border: 0 none;
 }

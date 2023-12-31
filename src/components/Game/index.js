@@ -2,6 +2,8 @@ import {Component} from 'react'
 
 import './index.css'
 
+import ResulCard from '../scoreCard'
+
 import ThumbnailEachItem from '../thumbnailItem'
 
 const tabsList = [
@@ -337,33 +339,7 @@ class Matchgame extends Component {
     )
     let container
     if (result === true) {
-      container = (
-        <div className="result">
-          <div className="resultContainer">
-            <img
-              src="https://assets.ccbp.in/frontend/react-js/match-game-trophy.png"
-              alt="trophy"
-              className="trophyImg"
-            />
-            <p className="scorePara">YOUR SCORE</p>
-            <p className="score">{score}</p>
-            <div className="buttonContainer">
-              <img
-                src="https://assets.ccbp.in/frontend/react-js/match-game-play-again-img.png"
-                alt="reset"
-                className="resetImg"
-              />
-              <button
-                className="playButton"
-                type="button"
-                onClick={this.playAgain}
-              >
-                PLAY AGAIN
-              </button>
-            </div>
-          </div>
-        </div>
-      )
+      container = <ResulCard score={score} playAgain={this.playAgain} />
     } else {
       container = (
         <div className="insideContainer">
@@ -393,13 +369,13 @@ class Matchgame extends Component {
 
     return (
       <div className="mainContainer">
-        <div className="NavBarContainer">
+        <ul className="NavBarContainer">
           <img
             src="https://assets.ccbp.in/frontend/react-js/match-game-website-logo.png"
             alt="website logo"
             className="logoImg"
           />
-          <div className="scoreContainer">
+          <li className="scoreContainer">
             <p className="scorePara">
               Score: <span className="spanElement">{score}</span>
             </p>
@@ -411,8 +387,8 @@ class Matchgame extends Component {
               />
               <span className="spanElement">{timerSec} sec</span>
             </div>
-          </div>
-        </div>
+          </li>
+        </ul>
         {container}
       </div>
     )
