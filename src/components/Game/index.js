@@ -308,8 +308,8 @@ class Matchgame extends Component {
       return check
     })
     const each = item[0]
-    if (each.thumbnailUrl === mainImg.thumbnailUrl) {
-      const val = Math.ceil(Math.random() * initialImagesList.length - 1)
+    if (each === mainImg) {
+      const val = Math.floor(Math.random() * initialImagesList.length)
       this.setState(prevState => ({
         score: prevState.score + 1,
         mainImg: initialImagesList[val],
@@ -399,6 +399,7 @@ class Matchgame extends Component {
             <p className="scorePara">
               Score: <span className="spanElement">{score}</span>
             </p>
+
             <div className="timerContainer">
               <img
                 src="https://assets.ccbp.in/frontend/react-js/match-game-timer-img.png"
