@@ -8,6 +8,13 @@
   align-items: center;
   margin: 0;
 }
+@media (max-width: 576px) {
+  .NavBarContainer {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
 .logoImg {
   width: 125px;
   height: 35px;
@@ -81,6 +88,7 @@
   align-items: center;
   padding: 0;
   margin: 0;
+  justify-content: center;
   width: 45%;
   flex-wrap: wrap;
 }
@@ -140,4 +148,29 @@
 .resetImg {
   width: 25px;
   height: 25px;
+}
+@media (max-width: 576px) {
+  .mainImg {
+    width: 85%;
+    height: 200px;
+    margin-bottom: 15px;
+    margin-top: 50px;
+  }
+  .unorderedImages {
+    margin-top: 20px;
+    width: 85%;
+    justify-content: center;
+  }
+  .mainContainer {
+    height: 100vh;
+  }
+  .result {
+    padding: 0;
+    height: 850px;
+  }
+  .resultContainer {
+    width: 100%;
+    background-image: url('https://assets.ccbp.in/frontend/react-js/match-game-score-card-sm-bg.png');
+    background-size: cover;
+  }
 }
